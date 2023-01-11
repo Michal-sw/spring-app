@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Person </title>
+</head>
+<body>
+
+<h2>User registration date: <div th=:text="${person.registrationDate}"></div></h2>
+<h2>Edit person</h2>
+
+<form action="#" th:action="@{/person/{id}(id=${person.getId()})}" th:object="${person}" method="post">
+
+  <div><input type="text" th:field="*{firstName}"></div>
+  <div><input type="text" th:field="*{lastName}"></div>
+  <div><input type="submit" value="Submit"></div>
+
+</form>
+
+<div th:if="${errorMessage}">
+  <div th:text="${errorMessage}"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>All persons</title>
+</head>
+<body>
+
+<h2>People from DB</h2>
+
+<div>
+    <a th:href="@{/person/add}">New person</a>
+</div>
+<br/>
+<br/>
+<div th:each="person : ${allPersonsFromDB}">
+    <span th:text="${person.firstName}"></span>
+    <span th:text="${person.lastName}"></span>
+    <span th:text="${person.id}"></span>
+    <span><a th:href="@{/person/{id}(id=${person.getId()})}">EDIT</a></span>
+    <a th:href="@{/person/delete/{id}(id=${person.getId()})}">Delete</a>
+    <br/>
+</div>
+
+<div th:if="${successMessage}">
+    <br/>
+    <div th:text="${successMessage}"></div>
+</div>
+
+<div th:if="${errorMessage}">
+    <br/>
+    <div th:text="${errorMessage}"></div>
+</div>
+
+</body>
+</html>
