@@ -1,14 +1,16 @@
-package com.projekt.planLekcji.Person;
+package com.projekt.planLekcji.Teacher;
 
 import com.projekt.planLekcji.Group.Group;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "person")
-public class Person {
+@Table(name = "teacher")
+public class Teacher {
     @NotNull(message = "First name must be specified!")
     @Size(min = 2)
     @Column
@@ -17,25 +19,32 @@ public class Person {
     @Size(min = 2)
     @Column
     private String lastName;
-    private String email;
+
+    @NotNull(message = "Speciality must be specified!")
+    @Column
+    private String speciality;
 
     @GeneratedValue
     @Id
     @Column
     private String id;
 
-    @NotNull(message = "Group must be specified!")
-    @ManyToOne
-    private Group schoolGroup;
-    private String address = "";
 
-    public Person() {}
+    @Column
+    @ManyToMany
+    private List<Group> assignedGroups = new ArrayList<Group>();
 
-    public Person(String firstName, String lastName, Group schoolGroup) {
+    public Teacher() {}
+
+    public Teacher(String firstName, String lastName, String speciality) {
         this.id = String.valueOf(UUID.randomUUID());
         this.firstName = firstName;
         this.lastName = lastName;
-        this.schoolGroup = schoolGroup;
+        this.speciality = speciality;
+    }
+
+    public void addGroup(Group group) {
+        this.assignedGroups.add(group);
     }
 
     public String getId() { return id; }
@@ -48,28 +57,27 @@ public class Person {
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+    public String getSpeciality() {
+        return speciality;
+    }
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
     }
     public void setId(String id) {
         this.id = id;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public void setSchoolGroup(Group schoolGroup) {
-        this.schoolGroup = schoolGroup;
-    };
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("First name - " + firstName + " ")
                 .append("last name - " + lastName + " ")
-                .append("group - " + schoolGroup.getName() + " ");
+                .append("speciality - " + speciality + " ")
+                .append("assigned groups - " + assignedGroups.toString() + " ");
 
         return result.toString();
     }

@@ -1,5 +1,6 @@
 package com.projekt.planLekcji.controller;
 
+import com.projekt.planLekcji.Group.Group;
 import com.projekt.planLekcji.Person.Person;
 import com.projekt.planLekcji.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,13 @@ import javax.validation.Valid;
 public class PersonWebController {
 
     private final PersonService personService;
+    private Group testGroup = new Group("3B");
+
     public PersonWebController(@Autowired PersonService personService) {
         this.personService = personService;
-        Person testAdmin = new Person("Olo", "Maciak");
-        Person testUser = new Person("User", "Testowy");
-        testAdmin.setAsAdmin();
-        personService.addPerson(testAdmin);
+        Person testUser = new Person("Olo", "Maciak", testGroup);
+        Person testUser2 = new Person("User", "Testowy", testGroup);
+        personService.addPerson(testUser2);
         personService.addPerson(testUser);
     }
 
@@ -41,7 +43,7 @@ public class PersonWebController {
 
     @GetMapping("/person/add")
     public String personAdd(Model model) {
-        model.addAttribute("person", new Person("", ""));
+        model.addAttribute("person", new Person("", "", testGroup));
         return "person-add";
     }
 
@@ -62,7 +64,7 @@ public class PersonWebController {
         if (person != null) {
             model.addAttribute("person", person);
         } else {
-            model.addAttribute("person", new Person("", ""));
+            model.addAttribute("person", new Person("", "",testGroup));
         }
 
         return "person-edit";

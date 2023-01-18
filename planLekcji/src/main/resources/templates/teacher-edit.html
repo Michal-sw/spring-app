@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Person </title>
+</head>
+<body>
+
+<h2>Edit teacher</h2>
+
+<form action="#" th:action="@{/teacher/{id}(id=${teacher.getId()})}" th:object="${teacher}" method="post">
+
+    <div><input type="text" th:field="*{firstName}"></div>
+    <div><input type="text" th:field="*{lastName}"></div>
+    <div><input type="text" th:field="*{speciality}"></div>
+
+    <div><input type="submit" value="Submit"></div>
+
+</form>
+
+<div th:if="${errorMessage}">
+    <div th:text="${errorMessage}"></div>
+</div>
+
+</body>
+</html>
