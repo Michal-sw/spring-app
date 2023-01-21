@@ -1,6 +1,6 @@
 package com.projekt.planLekcji.Teacher;
 
-import com.projekt.planLekcji.Group.Group;
+import com.projekt.planLekcji.Lesson.Lesson;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -9,30 +9,23 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "teacher")
 public class Teacher {
     @NotNull(message = "First name must be specified!")
     @Size(min = 2)
-    @Column
     private String firstName;
     @NotNull(message = "Last name must be specified!")
     @Size(min = 2)
-    @Column
     private String lastName;
 
     @NotNull(message = "Speciality must be specified!")
-    @Column
     private String speciality;
 
     @GeneratedValue
     @Id
-    @Column
     private String id;
 
-
-    @Column
-    @ManyToMany
-    private List<Group> assignedGroups = new ArrayList<Group>();
+    @OneToMany(mappedBy = "teacher")
+    private List<Lesson> lessons = new ArrayList<Lesson>();
 
     public Teacher() {}
 
@@ -43,8 +36,8 @@ public class Teacher {
         this.speciality = speciality;
     }
 
-    public void addGroup(Group group) {
-        this.assignedGroups.add(group);
+    public void addLesson(Lesson lesson) {
+        this.lessons.add(lesson);
     }
 
     public String getId() { return id; }
@@ -77,7 +70,7 @@ public class Teacher {
         result.append("First name - " + firstName + " ")
                 .append("last name - " + lastName + " ")
                 .append("speciality - " + speciality + " ")
-                .append("assigned groups - " + assignedGroups.toString() + " ");
+                .append("lessons - " + lessons.toString() + " ");
 
         return result.toString();
     }

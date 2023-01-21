@@ -5,28 +5,27 @@ import com.projekt.planLekcji.Group.Group;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.UUID;
-
 @Entity
-@Table(name = "person")
 public class Person {
-    @NotNull(message = "First name must be specified!")
-    @Size(min = 2)
-    @Column
-    private String firstName;
-    @NotNull(message = "Last name must be specified!")
-    @Size(min = 2)
-    @Column
-    private String lastName;
-    private String email;
 
     @GeneratedValue
     @Id
-    @Column
     private String id;
+
+    @NotNull(message = "First name must be specified!")
+    @Size(min = 2)
+    private String firstName;
+
+    @NotNull(message = "Last name must be specified!")
+    @Size(min = 2)
+    private String lastName;
 
     @NotNull(message = "Group must be specified!")
     @ManyToOne
     private Group schoolGroup;
+
+    private String email;
+
     private String address = "";
 
     public Person() {}
@@ -39,24 +38,43 @@ public class Person {
     }
 
     public String getId() { return id; }
+
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Group getSchoolGroup() {
+         return schoolGroup;
+    };
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
     public void setSchoolGroup(Group schoolGroup) {
         this.schoolGroup = schoolGroup;
     };
