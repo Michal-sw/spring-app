@@ -15,6 +15,13 @@
   <div><input type="text" th:field="*{firstName}"></div>
   <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
   <div><input type="text" th:field="*{lastName}"></div>
+  <div>
+    <select th:field="*{schoolGroup}">
+      <option th:each="group : ${schoolGroups}" th:value="${group.getId()}" th:text="${group.getName()}">
+      </option>
+    </select>
+  </div>
+
   <div><input type="submit" value="Submit"></div>
 
 </form>

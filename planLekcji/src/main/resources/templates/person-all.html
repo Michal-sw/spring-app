@@ -18,7 +18,7 @@
 <div th:each="person : ${allPersonsFromDB}">
     <span th:text="${person.firstName}"></span>
     <span th:text="${person.lastName}"></span>
-    <span th:text="${person.id}"></span>
+    <span th:text="${person.schoolGroup.getName()}"></span>
     <span><a th:href="@{/person/{id}(id=${person.getId()})}">EDIT</a></span>
     <a th:href="@{/person/delete/{id}(id=${person.getId()})}">Delete</a>
     <br/>

@@ -1,6 +1,6 @@
 package com.projekt.planLekcji.Timetable;
 
-import com.projekt.planLekcji.Group.Group;
+import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import com.projekt.planLekcji.Lesson.Lesson;
 
 import javax.persistence.*;
@@ -14,7 +14,7 @@ public class Timetable {
     private String id;
 
     @OneToOne
-    private Group assignedToGroup;
+    private SchoolGroup assignedToSchoolGroup;
 
     @OneToMany(mappedBy = "timetable")
     private List<Lesson> lessons;
@@ -22,12 +22,12 @@ public class Timetable {
     public Timetable() { }
 
 
-    public Group getAssignedGroup() {
-        return assignedToGroup;
+    public SchoolGroup getAssignedSchoolGroup() {
+        return assignedToSchoolGroup;
     }
 
-    public void setAssignedToGroup(Group assignedToGroup) {
-        this.assignedToGroup = assignedToGroup;
+    public void setAssignedToSchoolGroup(SchoolGroup assignedToSchoolGroup) {
+        this.assignedToSchoolGroup = assignedToSchoolGroup;
     }
 
     public List<Lesson> getLessons() {

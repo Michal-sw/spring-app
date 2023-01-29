@@ -1,8 +1,8 @@
 package com.projekt.planLekcji.controller;
 
-import com.projekt.planLekcji.Group.Group;
+import com.projekt.planLekcji.SchoolGroup.*;
 import com.projekt.planLekcji.Person.Person;
-import com.projekt.planLekcji.service.PersonService;
+import com.projekt.planLekcji.Person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +18,11 @@ import javax.validation.Valid;
 public class PersonWebController {
 
     private final PersonService personService;
-    private Group testGroup = new Group("3B");
+    private final SchoolGroupService schoolGroupService;
 
-    public PersonWebController(@Autowired PersonService personService) {
+    public PersonWebController(@Autowired PersonService personService, @Autowired SchoolGroupService schoolGroupService) {
         this.personService = personService;
-        Person testUser = new Person("Olo", "Maciak", testGroup);
-        Person testUser2 = new Person("User", "Testowy", testGroup);
-        personService.addPerson(testUser2);
-        personService.addPerson(testUser);
+        this.schoolGroupService = schoolGroupService;
     }
 
     @GetMapping("/person")
@@ -43,28 +40,24 @@ public class PersonWebController {
 
     @GetMapping("/person/add")
     public String personAdd(Model model) {
-        model.addAttribute("person", new Person("", "", testGroup));
+        model.addAttribute("person", new Person("", "", null));
+        model.addAttribute("schoolGroups", schoolGroupService.getAllGroups());
         return "person-add";
     }
 
     @GetMapping("/person/delete/{id}")
     public String deletePerson(@PathVariable("id") String id, Model model) {
-        if (personService.deletePerson(id)) {
-            model.addAttribute("successMessage", "Operacja się powiodła");
-        }
-        else {
-            model.addAttribute("errorMessage", "Operacja się nie powiodła");
-        }
+        model.addAttribute("successMessage", "Operacja się powiodła");
         return "redirect:/person";
     }
 
     @GetMapping("/person/{id}")
     public String personEditPath(@PathVariable("id") String id, Model model) {
-        Person person = personService.getPerson(id);
+        Person person = personService.findById(id);
         if (person != null) {
             model.addAttribute("person", person);
         } else {
-            model.addAttribute("person", new Person("", "",testGroup));
+            model.addAttribute("person", new Person("", "",null));
         }
 
         return "person-edit";
@@ -72,10 +65,11 @@ public class PersonWebController {
 
     @PostMapping("/person/{id}")
     public String personEdit(@PathVariable("id") String id, @ModelAttribute Person editedPerson, Model model) {
-        Person person = personService.getPerson(id);
+        Person person = personService.findById(id);
         if (person != null) {
             person.setFirstName(editedPerson.getFirstName());
             person.setLastName(editedPerson.getLastName());
+            personService.editPerson(person);
         }
 
         return "redirect:/person";

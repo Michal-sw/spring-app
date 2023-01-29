@@ -1,6 +1,7 @@
 package com.projekt.planLekcji.Person;
 
-import com.projekt.planLekcji.Group.Group;
+import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -8,8 +9,8 @@ import java.util.UUID;
 @Entity
 public class Person {
 
-    @GeneratedValue
-    @Id
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
     @NotNull(message = "First name must be specified!")
@@ -20,9 +21,9 @@ public class Person {
     @Size(min = 2)
     private String lastName;
 
-    @NotNull(message = "Group must be specified!")
+    @NotNull(message = "School Group must be specified!")
     @ManyToOne
-    private Group schoolGroup;
+    private SchoolGroup schoolGroup;
 
     private String email;
 
@@ -30,7 +31,7 @@ public class Person {
 
     public Person() {}
 
-    public Person(String firstName, String lastName, Group schoolGroup) {
+    public Person(String firstName, String lastName, SchoolGroup schoolGroup) {
         this.id = String.valueOf(UUID.randomUUID());
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,7 +64,7 @@ public class Person {
         this.email = email;
     }
 
-    public Group getSchoolGroup() {
+    public SchoolGroup getSchoolGroup() {
          return schoolGroup;
     };
 
@@ -75,7 +76,7 @@ public class Person {
         return address;
     }
 
-    public void setSchoolGroup(Group schoolGroup) {
+    public void setSchoolGroup(SchoolGroup schoolGroup) {
         this.schoolGroup = schoolGroup;
     };
 

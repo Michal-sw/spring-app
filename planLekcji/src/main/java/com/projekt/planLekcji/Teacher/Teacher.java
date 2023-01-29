@@ -25,7 +25,7 @@ public class Teacher {
     private String id;
 
     @OneToMany(mappedBy = "teacher")
-    private List<Lesson> lessons = new ArrayList<Lesson>();
+    private List<Lesson> lessons = new ArrayList<>();
 
     public Teacher() {}
 

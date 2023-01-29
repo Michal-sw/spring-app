@@ -1,8 +1,7 @@
 package com.projekt.planLekcji.controller;
 
 import com.projekt.planLekcji.Person.Person;
-import com.projekt.planLekcji.service.PersonService;
-import com.projekt.planLekcji.service.ServiceB;
+import com.projekt.planLekcji.Person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,11 +13,9 @@ import java.util.List;
 @RestController
 public class PersonController {
     private final PersonService personService;
-    private final ServiceB serviceB;
 
-    public PersonController(@Autowired PersonService personService, ServiceB serviceB) {
+    public PersonController(@Autowired PersonService personService) {
         this.personService = personService;
-        this.serviceB = serviceB;
     }
 
     @PostMapping("/api/person")
@@ -44,8 +41,7 @@ public class PersonController {
     }
 
     @GetMapping("/api/person")
-    List<Person> getAll() {
-        System.out.println(serviceB.hello());
+    Iterable<Person> getAll() {
         return personService.getAllPersons();
     }
 
@@ -55,15 +51,7 @@ public class PersonController {
         if (foundPerson == null) {
             throw new PersonNotFoundException();
         }
-
         return foundPerson;
     }
-
-    @DeleteMapping("/api/person/{id}")
-    public boolean deletePerson(@PathVariable("id") String id) {
-
-        return personService.deletePerson(id);
-    }
-
 
 }
