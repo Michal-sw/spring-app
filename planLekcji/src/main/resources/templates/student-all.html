@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>All students</title>
+</head>
+<body>
+
+<h2>People from DB</h2>
+
+<div>
+    <a th:href="@{/student/add}">New student</a>
+</div>
+<br/>
+<br/>
+<div th:each="student : ${allStudentsFromDB}">
+    <span th:text="${student.firstName}"></span>
+    <span th:text="${student.lastName}"></span>
+    <span th:text="${student.schoolGroup.getName()}"></span>
+    <span><a th:href="@{/student/{id}(id=${student.getId()})}">EDIT</a></span>
+    <a th:href="@{/student/delete/{id}(id=${student.getId()})}">Delete</a>
+    <br/>
+</div>
+
+<div th:if="${successMessage}">
+    <br/>
+    <div th:text="${successMessage}"></div>
+</div>
+
+<div th:if="${errorMessage}">
+    <br/>
+    <div th:text="${errorMessage}"></div>
+</div>
+
+</body>
+</html>

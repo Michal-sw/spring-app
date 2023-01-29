@@ -1,4 +1,4 @@
-package com.projekt.planLekcji.Person;
+package com.projekt.planLekcji.Student;
 
 import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.UUID;
 @Entity
-public class Person {
+public class Student {
 
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -29,9 +29,9 @@ public class Person {
 
     private String address = "";
 
-    public Person() {}
+    public Student() {}
 
-    public Person(String firstName, String lastName, SchoolGroup schoolGroup) {
+    public Student(String firstName, String lastName, SchoolGroup schoolGroup) {
         this.id = String.valueOf(UUID.randomUUID());
         this.firstName = firstName;
         this.lastName = lastName;

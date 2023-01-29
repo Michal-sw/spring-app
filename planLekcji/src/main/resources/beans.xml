@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean name="XMLBean" class="com.projekt.planLekcji.Person.Person">
+    <bean name="XMLBean" class="com.projekt.planLekcji.Student.Person">
         <property name="firstName" value="Michal"/>
         <property name="lastName" value="Swierczewski"/>
     </bean>

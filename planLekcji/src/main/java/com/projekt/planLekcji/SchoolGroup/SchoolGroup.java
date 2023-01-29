@@ -1,6 +1,6 @@
 package com.projekt.planLekcji.SchoolGroup;
 
-import com.projekt.planLekcji.Person.Person;
+import com.projekt.planLekcji.Student.Student;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -16,11 +16,11 @@ public class SchoolGroup {
     private String id;
 
     @NotNull(message = "Group name must be in '{number}{Letter}' format!")
-    @Size(min = 2, max = 3)
+    @Size(min = 1, max = 4)
     private String name;
 
     @OneToMany(mappedBy="schoolGroup")
-    private List<Person> students = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
     public SchoolGroup(String name) {
         this.name = name;
@@ -29,7 +29,15 @@ public class SchoolGroup {
     public SchoolGroup() { }
 
     public String getId() { return id; }
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() { return name; };
-    public List<Person> getStudents() { return students; };
-    public void addStudent(Person student) { this.students.add(student); }
+    public void setName(String name) { this.name = name; };
+
+    public List<Student> getStudents() { return students; };
+    public void addStudent(Student student) { this.students.add(student); }
+    public void removeStudent(Student student) { this.students.remove(student); }
+
 }

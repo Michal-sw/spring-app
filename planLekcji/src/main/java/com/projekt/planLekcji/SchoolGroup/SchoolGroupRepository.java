@@ -3,6 +3,7 @@ package com.projekt.planLekcji.SchoolGroup;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SchoolGroupRepository extends CrudRepository<SchoolGroup, String> {
@@ -15,6 +16,9 @@ public interface SchoolGroupRepository extends CrudRepository<SchoolGroup, Strin
 
     @Override
     Optional<SchoolGroup> findById(String s);
+
+    @Query("select m from SchoolGroup m left join fetch m.students where m.id = :s ")
+    Optional<List<SchoolGroup>> findByIdWithStudents(String s);
 
     @Override
     boolean existsById(String s);

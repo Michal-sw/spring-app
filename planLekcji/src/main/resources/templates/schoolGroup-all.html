@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>All school groups</title>
+</head>
+<body>
+
+<h2>School Groups</h2>
+
+<div>
+  <a th:href="@{/schoolGroup/add}">New Group</a>
+</div>
+<br/>
+<br/>
+<div th:each="group : ${schoolGroups}">
+  <span th:text="${group.name}"></span>
+  <span><a th:href="@{/schoolGroup/{id}(id=${group.getId()})}">EDIT</a></span>
+  <a th:href="@{/schoolGroup/delete/{id}(id=${group.getId()})}">Delete</a>
+  <br/>
+</div>
+
+<div th:if="${successMessage}">
+  <br/>
+  <div th:text="${successMessage}"></div>
+</div>
+
+<div th:if="${errorMessage}">
+  <br/>
+  <div th:text="${errorMessage}"></div>
+</div>
+
+</body>
+</html>

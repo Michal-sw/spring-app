@@ -1,4 +1,4 @@
-package com.projekt.planLekcji.Person;
+package com.projekt.planLekcji.Student;
 
 public enum UserType {
     Guest,
