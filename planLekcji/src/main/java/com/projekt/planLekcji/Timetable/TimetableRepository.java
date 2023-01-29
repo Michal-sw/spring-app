@@ -1,5 +1,6 @@
 package com.projekt.planLekcji.Timetable;
 
+import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import com.projekt.planLekcji.Teacher.Teacher;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -24,6 +25,9 @@ interface TimetableRepository extends CrudRepository<Timetable, String> {
     @Override
     @Query("Select m from Timetable m")
     Iterable<Timetable> findAll();
+
+    @Query("Select e from SchoolGroup e where e.id not in (select m.assignedToSchoolGroup.id from Timetable m)")
+    Iterable<SchoolGroup> findAllGroupsWithoutTimetable();
 
     @Override
     Iterable<Timetable> findAllById(Iterable<String> strings);

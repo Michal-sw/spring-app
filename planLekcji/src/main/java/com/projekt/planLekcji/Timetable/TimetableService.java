@@ -1,5 +1,6 @@
 package com.projekt.planLekcji.Timetable;
 
+import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import com.projekt.planLekcji.Teacher.Teacher;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -37,6 +38,11 @@ public class TimetableService {
             return timetables.get().get(0);
         }
         return null;
+    }
+
+    public Iterable<SchoolGroup> findAllGroupsWithoutTimetable() {
+        Iterable<SchoolGroup> schoolGroups = timetableRepository.findAllGroupsWithoutTimetable();
+        return schoolGroups;
     }
 
     public Iterable<Timetable> getAllTimetables() {

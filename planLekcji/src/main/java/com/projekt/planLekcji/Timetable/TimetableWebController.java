@@ -2,7 +2,6 @@ package com.projekt.planLekcji.Timetable;
 
 import com.projekt.planLekcji.Lesson.LessonService;
 import com.projekt.planLekcji.SchoolGroup.SchoolGroupService;
-import com.projekt.planLekcji.Student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +45,7 @@ public class TimetableWebController {
     @GetMapping("/timetable/add")
     public String timetableAdd(Model model) {
         model.addAttribute("timetable", new Timetable());
-        model.addAttribute("schoolGroups", schoolGroupService.getAllSchoolGroups());
+        model.addAttribute("schoolGroups", timetableService.findAllGroupsWithoutTimetable());
         model.addAttribute("lessons", lessonService.getAllLessons());
         return "/timetable/timetable-add";
     }
@@ -69,7 +68,7 @@ public class TimetableWebController {
         } else {
             model.addAttribute("timetable", new Timetable());
         }
-        model.addAttribute("schoolGroups", schoolGroupService.getAllSchoolGroups());
+        model.addAttribute("schoolGroups", timetableService.findAllGroupsWithoutTimetable());
         model.addAttribute("lessons", lessonService.getAllLessons());
 
         return "/timetable/timetable-edit";

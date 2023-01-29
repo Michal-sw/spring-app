@@ -21,19 +21,12 @@ public class StudentController {
 
         HttpHeaders httpHeaders = new HttpHeaders();
 
-        httpHeaders.add("X-Custem-Header", "123");
-
-
         return new ResponseEntity<>(createdStudent, httpHeaders, HttpStatus.CREATED);
     }
 
     @PutMapping("/api/student")
     Student modifyStudent(@RequestBody Student student) {
-        Student foundStudent = studentService.findById(student.getId());
-
-        foundStudent.setFirstName(student.getFirstName());
-        foundStudent.setLastName(student.getLastName());
-
+        studentService.editStudent(student);
         return student;
     }
 
