@@ -22,10 +22,11 @@
         >
         </option>
     </select>
+    <p th:each="lesson : *{lessons}" th:text="${lesson.getId()}"></p>
     <select name="lessons" id="lessons" multiple="multiple">
         <option
                 th:each="lesson : ${lessons}"
-                th:value="${lesson}"
+                th:value="${lesson.getId()}"
                 th:text="${lesson.getTeacher().getSpeciality()} + ' ' + ${lesson.getStartTime()} + ' ' + ${lesson.getEndTime()}"
                 th:selected="${#lists.contains(timetable.lessons, lesson)}"
         >

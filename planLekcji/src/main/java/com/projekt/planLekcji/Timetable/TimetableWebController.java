@@ -78,6 +78,7 @@ public class TimetableWebController {
     @PostMapping("/timetable/{id}")
     public String timetableEdit(@PathVariable("id") String id, @ModelAttribute Timetable editedTimetable, Model model) {
         Timetable timetable = timetableService.findById(id);
+        System.out.println(editedTimetable.getLessons());
         if (timetable != null) {
             timetableService.editTimetable(editedTimetable);
         }
@@ -93,7 +94,6 @@ public class TimetableWebController {
                 model.addAttribute("errorMessage", error.toString());
             }
         } else {
-            System.out.println(timetable.getLessons());
             timetableService.addTimetable(timetable);
             model.addAttribute("successMessage", "Timetable added! :)");
         }

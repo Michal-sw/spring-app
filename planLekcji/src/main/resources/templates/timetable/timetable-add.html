@@ -26,7 +26,7 @@
   <select name="lessons" id="lessons" multiple="multiple">
     <option
             th:each="lesson : ${lessons}"
-            th:value="${lesson}"
+            th:value="${lesson.getId()}"
             th:text="${lesson.getTeacher().getSpeciality()} + ' ' + ${lesson.getStartTime()} + ' ' + ${lesson.getEndTime()}"
     >
     </option>
