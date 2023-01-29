@@ -1,6 +1,7 @@
 package com.projekt.planLekcji.Teacher;
 
 import com.projekt.planLekcji.Lesson.Lesson;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -20,8 +21,8 @@ public class Teacher {
     @NotNull(message = "Speciality must be specified!")
     private String speciality;
 
-    @GeneratedValue
-    @Id
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
     @OneToMany(mappedBy = "teacher")
@@ -30,7 +31,6 @@ public class Teacher {
     public Teacher() {}
 
     public Teacher(String firstName, String lastName, String speciality) {
-        this.id = String.valueOf(UUID.randomUUID());
         this.firstName = firstName;
         this.lastName = lastName;
         this.speciality = speciality;
@@ -38,6 +38,9 @@ public class Teacher {
 
     public void addLesson(Lesson lesson) {
         this.lessons.add(lesson);
+    }
+    public void removeLesson(Lesson lesson) {
+        this.lessons.remove(lesson);
     }
 
     public String getId() { return id; }

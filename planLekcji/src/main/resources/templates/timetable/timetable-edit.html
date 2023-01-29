@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Timetable</title>
+</head>
+<body>
+<div th:insert="navbar :: navbar"></div>
+
+<h2>Edit Timetable</h2>
+
+<form action="#" th:action="@{/timetable/{id}(id=${timetable.getId()})}" th:object="${timetable}" method="post">
+
+    <select name="assignedToSchoolGroup" id="assignedToSchoolGroup">
+        <option
+                th:each="group : ${schoolGroups}"
+                th:value="${group.getId()}"
+                th:text="${group.getName()}"
+                th:selected="(${group.getName()} == *{assignedSchoolGroup.getName()})"
+        >
+        </option>
+    </select>
+    <div><input type="submit" value="Submit"></div>
+
+</form>
+
+<div th:if="${errorMessage}">
+    <div th:text="${errorMessage}"></div>
+</div>
+
+</body>
+</html>

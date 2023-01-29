@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Add Lesson</title>
+</head>
+<body>
+<div th:insert="navbar :: navbar"></div>
+
+<h2>Add Lesson</h2>
+
+<form action="#" th:action="@{/templates/lesson}" th:object="${lesson}" method="post">
+
+  <div><input type="datetime-local" th:field="*{startTime}"></div>
+  <div><input type="datetime-local" th:field="*{endTime}"></div>
+
+  <div><input type="submit" value="Submit"></div>
+
+</form>
+
+<div th:if="${errorMessage}">
+  <div th:text="${errorMessage}"></div>
+</div>
+
+</body>
+</html>

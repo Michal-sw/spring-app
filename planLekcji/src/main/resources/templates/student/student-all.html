@@ -7,6 +7,7 @@
     <title>All students</title>
 </head>
 <body>
+<div th:insert="navbar :: navbar"></div>
 
 <h2>People from DB</h2>
 
@@ -15,10 +16,9 @@
 </div>
 <br/>
 <br/>
-<div th:each="student : ${allStudentsFromDB}">
+<div th:each="student : ${students}">
     <span th:text="${student.firstName}"></span>
     <span th:text="${student.lastName}"></span>
-    <span th:text="${student.schoolGroup.getName()}"></span>
     <span><a th:href="@{/student/{id}(id=${student.getId()})}">EDIT</a></span>
     <a th:href="@{/student/delete/{id}(id=${student.getId()})}">Delete</a>
     <br/>

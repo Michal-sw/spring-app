@@ -7,10 +7,11 @@
   <title>Add school group</title>
 </head>
 <body>
+<div th:insert="navbar :: navbar"></div>
 
 <h2>Add school group</h2>
 
-<form action="#" th:action="@{/schoolGroup}" th:object="${schoolGroup}" method="post">
+<form action="#" th:action="@{/templates/schoolGroup}" th:object="${schoolGroup}" method="post">
 
   <div><input type="text" th:field="*{name}"></div>
   <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>

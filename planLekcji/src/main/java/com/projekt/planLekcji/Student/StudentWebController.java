@@ -29,18 +29,18 @@ public class StudentWebController {
             @RequestParam(value = "successMessage", required = false) String successMessage,
             Model model)
     {
-        model.addAttribute("allStudentsFromDB", studentService.getAllStudents());
+        model.addAttribute("students", studentService.getAllStudents());
         if (errorMessage != null) model.addAttribute("errorMessage", errorMessage);
         if (successMessage != null) model.addAttribute("successMessage", successMessage);
 
-        return "student-all";
+        return "/student/student-all";
     }
 
     @GetMapping("/student/add")
     public String studentAdd(Model model) {
         model.addAttribute("student", new Student("", "", null));
         model.addAttribute("schoolGroups", schoolGroupService.getAllSchoolGroups());
-        return "student-add";
+        return "/student/student-add";
     }
 
     @GetMapping("/student/delete/{id}")
@@ -62,7 +62,7 @@ public class StudentWebController {
             model.addAttribute("student", new Student("", "",null));
         }
 
-        return "student-edit";
+        return "/student/student-edit";
     }
 
     @PostMapping("/student/{id}")

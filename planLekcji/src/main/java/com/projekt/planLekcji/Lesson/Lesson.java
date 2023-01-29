@@ -1,18 +1,15 @@
 package com.projekt.planLekcji.Lesson;
 import com.projekt.planLekcji.Teacher.Teacher;
-import com.projekt.planLekcji.Timetable.Timetable;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalTime;
 
 @Entity
 public class Lesson {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
-
-    @ManyToOne
-    private Timetable timetable;
 
     @ManyToOne
     private Teacher teacher;
@@ -22,7 +19,6 @@ public class Lesson {
     private LocalTime endTime;
 
     public Lesson() { }
-
 
     public Teacher getTeacher() {
         return teacher;
@@ -48,13 +44,11 @@ public class Lesson {
         this.endTime = endTime;
     }
 
-
-    public Timetable getTimetable() {
-        return timetable;
+    public String getId() {
+        return id;
     }
 
-    public void setTimetable(Timetable timeTable) {
-        this.timetable = timetable;
+    public void setId(String id) {
+        this.id = id;
     }
-
 }

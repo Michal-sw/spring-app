@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class SchoolGroupWebController {
@@ -34,18 +33,18 @@ public class SchoolGroupWebController {
         if (errorMessage != null) model.addAttribute("errorMessage", errorMessage);
         if (successMessage != null) model.addAttribute("successMessage", successMessage);
 
-        return "schoolGroup-all";
+        return "/schoolGroup/schoolGroup-all";
     }
 
     @GetMapping("/schoolGroup/add")
     public String schoolGroupAdd(Model model) {
         model.addAttribute("schoolGroup", new SchoolGroup(""));
-        return "schoolGroup-add";
+        return "/schoolGroup/schoolGroup-add";
     }
 
     @GetMapping("/schoolGroup/delete/{id}")
     public ModelAndView deleteSchoolGroup(@PathVariable("id") String id, ModelMap model) {
-        SchoolGroup schoolGroupOptional = schoolGroupService.findById(id);
+        SchoolGroup schoolGroupOptional = schoolGroupService.findByIdWithStudents(id);
         if (schoolGroupOptional != null && schoolGroupOptional.getStudents().size() > 0) {
             model.addAttribute("errorMessage", "Transfer students to another group first");
             return new ModelAndView("redirect:/schoolGroup", model);
@@ -65,7 +64,7 @@ public class SchoolGroupWebController {
             model.addAttribute("schoolGroup", new SchoolGroup(""));
         }
 
-        return "schoolGroup-edit";
+        return "/schoolGroup/schoolGroup-edit";
     }
 
     @PostMapping("/schoolGroup/{id}")

@@ -7,6 +7,7 @@
     <title>School group</title>
 </head>
 <body>
+<div th:insert="navbar :: navbar"></div>
 
 <h2>Edit school group</h2>
 
@@ -15,10 +16,11 @@
     <div><input type="text" th:field="*{name}"></div>
     <div>
         <ul class="flex-box">
-            <li
-                    th:each="student : *{students}"
-                    th:text="${student.getFirstName()} + ' ' + ${student.getLastName()}"
-            >
+            <li th:each="student : *{students}">
+                <a
+                        th:href="@{/student/{studentId}(studentId=${student.getId()})}"
+                        th:text="${student.getFirstName()} + ' ' + ${student.getLastName()}"
+                ></a>
             </li>
         </ul>
     </div>
