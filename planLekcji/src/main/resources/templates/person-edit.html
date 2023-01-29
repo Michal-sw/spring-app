@@ -14,7 +14,17 @@
 
   <div><input type="text" th:field="*{firstName}"></div>
   <div><input type="text" th:field="*{lastName}"></div>
-  <div><input type="text" th:field="*{schoolGroup.name}"></div>
+  <div>
+    <select name="schoolGroup" id="schoolGroup">
+      <option
+              th:each="group : ${schoolGroups}"
+              th:value="${group.getId()}"
+              th:text="${group.getName()}"
+              th:selected="(${group.getName()} == *{schoolGroup.getName()})"
+      >
+      </option>
+    </select>
+  </div>
   <div><input type="submit" value="Submit"></div>
 
 </form>

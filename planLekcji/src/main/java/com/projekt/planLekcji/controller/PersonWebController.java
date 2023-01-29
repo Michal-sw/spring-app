@@ -47,6 +47,7 @@ public class PersonWebController {
 
     @GetMapping("/person/delete/{id}")
     public String deletePerson(@PathVariable("id") String id, Model model) {
+        personService.deleteById(id);
         model.addAttribute("successMessage", "Operacja się powiodła");
         return "redirect:/person";
     }
@@ -56,6 +57,7 @@ public class PersonWebController {
         Person person = personService.findById(id);
         if (person != null) {
             model.addAttribute("person", person);
+            model.addAttribute("schoolGroups", schoolGroupService.getAllGroups());
         } else {
             model.addAttribute("person", new Person("", "",null));
         }
@@ -67,9 +69,7 @@ public class PersonWebController {
     public String personEdit(@PathVariable("id") String id, @ModelAttribute Person editedPerson, Model model) {
         Person person = personService.findById(id);
         if (person != null) {
-            person.setFirstName(editedPerson.getFirstName());
-            person.setLastName(editedPerson.getLastName());
-            personService.editPerson(person);
+            personService.editPerson(editedPerson);
         }
 
         return "redirect:/person";
@@ -90,7 +90,4 @@ public class PersonWebController {
 
         return new ModelAndView("redirect:/person", model);
     }
-
-
-
 }
