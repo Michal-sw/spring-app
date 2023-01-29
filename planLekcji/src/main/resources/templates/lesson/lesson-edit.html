@@ -4,27 +4,27 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>School group</title>
+    <title>Lesson</title>
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
 
-<h2>Edit school group</h2>
+<h2>Edit Lesson</h2>
 
 <form action="#" th:action="@{/lesson/{id}(id=${lesson.getId()})}" th:object="${lesson}" method="post">
 
-    <div><input type="text" th:field="*{startTime}"></div>
-    <div><input type="text" th:field="*{endTime}"></div>
-<!--    <div>-->
-<!--        <ul class="flex-box">-->
-<!--            <li th:each="teacher : *{teachers}">-->
-<!--                <a-->
-<!--                        th:href="@{/student/{studentId}(studentId=${student.getId()})}"-->
-<!--                        th:text="${student.getFirstName()} + ' ' + ${student.getLastName()}"-->
-<!--                ></a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
+    <div><input type="time" th:field="*{startTime}"></div>
+    <div><input type="time" th:field="*{endTime}"></div>
+    <div>
+        <select name="teacher" id="teacher">
+            <option th:each="teacher : ${teachers}"
+                    th:value="${teacher.getId()}"
+                    th:text="${teacher.getLastName()} + ' ' + ${teacher.getSpeciality()}"
+                    th:selected="(*{teacher} != null and ${teacher.getId()} == *{teacher.getId()})"
+            >
+            </option>
+        </select>
+    </div>
     <div><input type="submit" value="Submit"></div>
 
 </form>

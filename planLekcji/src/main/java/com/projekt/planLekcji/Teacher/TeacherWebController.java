@@ -1,7 +1,6 @@
 package com.projekt.planLekcji.Teacher;
 
-import com.projekt.planLekcji.Teacher.Teacher;
-import com.projekt.planLekcji.Teacher.TeacherService;
+import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import com.projekt.planLekcji.Student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,13 +40,21 @@ public class TeacherWebController {
     @GetMapping("/teacher/add")
     public String teacherAdd(Model model) {
         model.addAttribute("teacher", new Teacher());
+        model.addAttribute("specialities", Speciality.values());
+
         return "/teacher/teacher-add";
     }
 
     @GetMapping("/teacher/delete/{id}")
     public ModelAndView deleteTeacher(@PathVariable("id") String id, ModelMap model) {
+        Teacher teacherOptional = teacherService.findByIdWithAllLeasons(id);
+        if (teacherOptional != null && teacherOptional.getLessons().size() > 0) {
+            model.addAttribute("errorMessage", "Remove teacher from all lessons first");
+            return new ModelAndView("redirect:/teacher", model);
+        }
         teacherService.deleteById(id);
         model.addAttribute("successMessage", "Operacja się powiodła");
+
         return new ModelAndView("redirect:/teacher", model);
     }
 
@@ -60,6 +67,7 @@ public class TeacherWebController {
         } else {
             model.addAttribute("teacher", new Teacher());
         }
+        model.addAttribute("specialities", Speciality.values());
 
         return "/teacher/teacher-edit";
     }

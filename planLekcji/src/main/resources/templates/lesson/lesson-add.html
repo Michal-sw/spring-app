@@ -11,10 +11,17 @@
 
 <h2>Add Lesson</h2>
 
-<form action="#" th:action="@{/templates/lesson}" th:object="${lesson}" method="post">
-
-  <div><input type="datetime-local" th:field="*{startTime}"></div>
-  <div><input type="datetime-local" th:field="*{endTime}"></div>
+<form action="#" th:action="@{/lesson}" th:object="${lesson}" method="post">
+  <div><input type="time" th:field="*{startTime}"></div>
+  <div><input type="time" th:field="*{endTime}"></div>
+  <div>
+    <select th:field="*{teacher}">
+      <option th:each="teacher : ${teachers}"
+              th:value="${teacher.getId()}"
+              th:text="${teacher.getLastName()} + ' ' + ${teacher.getSpeciality()}">
+      </option>
+    </select>
+  </div>
 
   <div><input type="submit" value="Submit"></div>
 

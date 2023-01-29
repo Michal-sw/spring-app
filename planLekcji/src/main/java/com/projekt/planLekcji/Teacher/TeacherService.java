@@ -1,10 +1,12 @@
 package com.projekt.planLekcji.Teacher;
 
+import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import com.projekt.planLekcji.Teacher.Teacher;
 import com.projekt.planLekcji.Teacher.TeacherRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +32,14 @@ public class TeacherService {
     public Teacher findById(String id) {
         Optional<Teacher> teacher =  teacherRepository.findById(id);
         return teacher.orElse(null);
+    }
+
+    public Teacher findByIdWithAllLeasons(String id) {
+        Optional<List<Teacher>> teachers =  teacherRepository.findByIdWithLessons(id);
+        if (teachers.isPresent()) {
+            return teachers.get().get(0);
+        }
+        return null;
     }
 
     public Iterable<Teacher> getAllTeachers() {

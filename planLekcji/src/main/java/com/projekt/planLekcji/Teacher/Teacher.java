@@ -19,7 +19,7 @@ public class Teacher {
     private String lastName;
 
     @NotNull(message = "Speciality must be specified!")
-    private String speciality;
+    private Speciality speciality;
 
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -30,7 +30,7 @@ public class Teacher {
 
     public Teacher() {}
 
-    public Teacher(String firstName, String lastName, String speciality) {
+    public Teacher(String firstName, String lastName, Speciality speciality) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.speciality = speciality;
@@ -44,6 +44,8 @@ public class Teacher {
     }
 
     public String getId() { return id; }
+    public List<Lesson> getLessons() { return this.lessons; }
+
     public String getFirstName() {
         return firstName;
     }
@@ -57,10 +59,10 @@ public class Teacher {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public String getSpeciality() {
+    public Speciality getSpeciality() {
         return speciality;
     }
-    public void setSpeciality(String speciality) {
+    public void setSpeciality(Speciality speciality) {
         this.speciality = speciality;
     }
     public void setId(String id) {

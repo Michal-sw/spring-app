@@ -19,6 +19,7 @@
 <div th:each="lesson : ${lessons}">
   <span th:text="${lesson.getStartTime()}"></span>
   <span th:text="${lesson.getEndTime()}"></span>
+  <span th:if="(${lesson.teacher} != null)" th:text="${lesson.getTeacher().getLastName()}"></span>
   <span><a th:href="@{/lesson/{id}(id=${lesson.getId()})}">EDIT</a></span>
   <a th:href="@{/lesson/delete/{id}(id=${lesson.getId()})}">Delete</a>
   <br/>

@@ -1,5 +1,6 @@
 package com.projekt.planLekcji.Timetable;
 
+import com.projekt.planLekcji.Lesson.LessonService;
 import com.projekt.planLekcji.SchoolGroup.SchoolGroupService;
 import com.projekt.planLekcji.Student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class TimetableWebController {
 
     private final TimetableService timetableService;
+    private final LessonService lessonService;
     private final SchoolGroupService schoolGroupService;
 
-    public TimetableWebController(@Autowired SchoolGroupService schoolGroupService, @Autowired TimetableService timetableService) {
+    public TimetableWebController(@Autowired SchoolGroupService schoolGroupService,
+                                  @Autowired TimetableService timetableService,
+                                  @Autowired LessonService lessonService
+    ) {
         this.timetableService = timetableService;
         this.schoolGroupService = schoolGroupService;
+        this.lessonService = lessonService;
     }
 
     @GetMapping("/timetable")
@@ -42,6 +47,7 @@ public class TimetableWebController {
     public String timetableAdd(Model model) {
         model.addAttribute("timetable", new Timetable());
         model.addAttribute("schoolGroups", schoolGroupService.getAllSchoolGroups());
+        model.addAttribute("lessons", lessonService.getAllLessons());
         return "/timetable/timetable-add";
     }
 
@@ -63,7 +69,8 @@ public class TimetableWebController {
         } else {
             model.addAttribute("timetable", new Timetable());
         }
-        model.addAttribute("schoolGroups", schoolGroupService.getAllSchoolGroups());
+        model.addAttribute("timetable", schoolGroupService.getAllSchoolGroups());
+        model.addAttribute("lessons", lessonService.getAllLessons());
 
         return "/timetable/timetable-edit";
     }

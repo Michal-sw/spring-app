@@ -3,6 +3,7 @@ package com.projekt.planLekcji.Lesson;
 import com.projekt.planLekcji.Lesson.Lesson;
 import com.projekt.planLekcji.Lesson.LessonService;
 import com.projekt.planLekcji.Student.StudentService;
+import com.projekt.planLekcji.Teacher.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,11 @@ import javax.validation.Valid;
 @Controller
 public class LessonWebController {
 
-    private final StudentService studentService;
+    private final TeacherService teacherService;
     private final LessonService lessonService;
 
-    public LessonWebController(@Autowired StudentService studentService, @Autowired LessonService lessonService) {
-        this.studentService = studentService;
+    public LessonWebController(@Autowired TeacherService teacherService, @Autowired LessonService lessonService) {
+        this.teacherService = teacherService;
         this.lessonService = lessonService;
     }
 
@@ -41,6 +42,7 @@ public class LessonWebController {
     @GetMapping("/lesson/add")
     public String lessonAdd(Model model) {
         model.addAttribute("lesson", new Lesson());
+        model.addAttribute("teachers", teacherService.getAllTeachers());
         return "/lesson/lesson-add";
     }
 
@@ -60,6 +62,7 @@ public class LessonWebController {
         } else {
             model.addAttribute("lesson", new Lesson());
         }
+        model.addAttribute("teachers", teacherService.getAllTeachers());
 
         return "/lesson/lesson-edit";
     }

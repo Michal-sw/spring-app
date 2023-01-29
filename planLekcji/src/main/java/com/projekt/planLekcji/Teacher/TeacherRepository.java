@@ -1,8 +1,10 @@
 package com.projekt.planLekcji.Teacher;
 
+import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 interface TeacherRepository extends CrudRepository<Teacher, String> {
@@ -25,6 +27,9 @@ interface TeacherRepository extends CrudRepository<Teacher, String> {
 
     @Override
     Iterable<Teacher> findAllById(Iterable<String> strings);
+
+    @Query("select m from Teacher m left join fetch m.lessons where m.id = :s ")
+    Optional<List<Teacher>> findByIdWithLessons(String s);
 
     @Override
     long count();

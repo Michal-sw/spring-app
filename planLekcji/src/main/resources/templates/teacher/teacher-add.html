@@ -11,10 +11,20 @@
 
 <h2>Add Teacher</h2>
 
-<form action="#" th:action="@{/templates/teacher}" th:object="${teacher}" method="post">
+<form action="#" th:action="@{/teacher}" th:object="${teacher}" method="post">
 
   <div><input type="text" th:field="*{firstName}"></div>
   <div><input type="text" th:field="*{lastName}"></div>
+  <div>
+    <select name="speciality" id="speciality">
+      <option th:each="speciality : ${specialities}"
+              th:value="${speciality}"
+              th:text="${speciality}"
+      >
+      </option>
+    </select>
+  </div>
+
 
   <div><input type="submit" value="Submit"></div>
 
