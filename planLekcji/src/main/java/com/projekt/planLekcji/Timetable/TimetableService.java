@@ -1,7 +1,9 @@
 package com.projekt.planLekcji.Timetable;
 
+import com.projekt.planLekcji.Teacher.Teacher;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +29,14 @@ public class TimetableService {
     public Timetable findById(String id) {
         Optional<Timetable> timetable =  timetableRepository.findById(id);
         return timetable.orElse(null);
+    }
+
+    public Timetable findByIdWithAllLessons(String id) {
+        Optional<List<Timetable>> timetables =  timetableRepository.findByIdWithLessons(id);
+        if (timetables.isPresent()) {
+            return timetables.get().get(0);
+        }
+        return null;
     }
 
     public Iterable<Timetable> getAllTimetables() {

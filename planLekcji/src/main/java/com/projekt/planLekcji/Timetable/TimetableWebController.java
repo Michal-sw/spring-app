@@ -62,14 +62,14 @@ public class TimetableWebController {
 
     @GetMapping("/timetable/{id}")
     public String timetableEditPath(@PathVariable("id") String id, Model model) {
-        Timetable timetable = timetableService.findById(id);
+        Timetable timetable = timetableService.findByIdWithAllLessons(id);
 
         if (timetable != null) {
             model.addAttribute("timetable", timetable);
         } else {
             model.addAttribute("timetable", new Timetable());
         }
-        model.addAttribute("timetable", schoolGroupService.getAllSchoolGroups());
+        model.addAttribute("schoolGroups", schoolGroupService.getAllSchoolGroups());
         model.addAttribute("lessons", lessonService.getAllLessons());
 
         return "/timetable/timetable-edit";
@@ -93,6 +93,7 @@ public class TimetableWebController {
                 model.addAttribute("errorMessage", error.toString());
             }
         } else {
+            System.out.println(timetable.getLessons());
             timetableService.addTimetable(timetable);
             model.addAttribute("successMessage", "Timetable added! :)");
         }

@@ -1,8 +1,10 @@
 package com.projekt.planLekcji.Timetable;
 
+import com.projekt.planLekcji.Teacher.Teacher;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 interface TimetableRepository extends CrudRepository<Timetable, String> {
@@ -25,6 +27,9 @@ interface TimetableRepository extends CrudRepository<Timetable, String> {
 
     @Override
     Iterable<Timetable> findAllById(Iterable<String> strings);
+
+    @Query("select m from Timetable m left join fetch m.lessons where m.id = :s ")
+    Optional<List<Timetable>>findByIdWithLessons(String s);
 
     @Override
     long count();

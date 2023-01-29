@@ -17,7 +17,7 @@ public class Timetable {
     @OneToOne
     private SchoolGroup assignedToSchoolGroup;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "timetable")
     private List<Lesson> lessons;
 
     public Timetable() { }
@@ -33,7 +33,6 @@ public class Timetable {
     public List<Lesson> getLessons() {
         return lessons;
     }
-
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }

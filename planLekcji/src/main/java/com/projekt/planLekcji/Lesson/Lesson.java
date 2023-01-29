@@ -1,5 +1,6 @@
 package com.projekt.planLekcji.Lesson;
 import com.projekt.planLekcji.Teacher.Teacher;
+import com.projekt.planLekcji.Timetable.Timetable;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,6 +14,9 @@ public class Lesson {
 
     @ManyToOne
     private Teacher teacher;
+
+    @ManyToOne
+    private Timetable timetable;
 
     private LocalTime startTime;
 
@@ -50,5 +54,13 @@ public class Lesson {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Timetable getTimetable() {
+        return timetable;
+    }
+
+    public void setTimetable(Timetable timetable) {
+        this.timetable = timetable;
     }
 }
