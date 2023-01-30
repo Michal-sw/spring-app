@@ -54,7 +54,10 @@ public class TimetableWebController {
 
     @GetMapping("/timetable/delete/{id}")
     public ModelAndView deleteTimetable(@PathVariable("id") String id, ModelMap model) {
-        Timetable timetable = timetableService.findById(id);
+        Timetable timetable = timetableService.findByIdWithAllLessons(id);
+        for (Lesson lesson : timetable.getLessons()) {
+            lessonService.setTimetable(lesson, null);
+        }
         timetableService.deleteById(id);
 
         model.addAttribute("successMessage", "Operacja się powiodła");
@@ -90,7 +93,7 @@ public class TimetableWebController {
 
     @PostMapping("/timetable/{id}")
     public String timetableEdit(@PathVariable("id") String id, @ModelAttribute Timetable editedTimetable, Model model) {
-        Timetable timetable = timetableService.findById(id);
+        Timetable timetable = timetableService.findByIdWithAllLessons(id);
         if (timetable != null) {
             timetableService.editTimetable(editedTimetable);
             for (Lesson lesson : timetable.getLessons()) {

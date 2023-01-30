@@ -20,9 +20,6 @@ public class TimetableService {
     }
 
     public Timetable addTimetable(Timetable timetableToAdd) {
-        for (Lesson lesson : timetableToAdd.getLessons()) {
-            lesson.setTimetable(timetableToAdd);
-        }
         timetableRepository.save(timetableToAdd);
         return timetableToAdd;
     }
@@ -39,6 +36,14 @@ public class TimetableService {
 
     public Timetable findByIdWithAllLessons(String id) {
         Optional<List<Timetable>> timetables =  timetableRepository.findByIdWithLessons(id);
+        if (timetables.isPresent()) {
+            return timetables.get().get(0);
+        }
+        return null;
+    }
+
+    public Timetable findByIdWithAllLessonsSortedByDate(String id) {
+        Optional<List<Timetable>> timetables =  timetableRepository.findByIdWithLessonsSortedByDate(id);
         if (timetables.isPresent()) {
             return timetables.get().get(0);
         }
