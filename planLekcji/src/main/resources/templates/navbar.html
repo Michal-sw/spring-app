@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>NavigationBar</title>
-
+  <link th:href="@{/styles/main.css}" rel="stylesheet" />
 </head>
 <body>
 
 <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav">
+  <div class="navbar">
+    <ul class="nav-list">
       <li><a class="nav-link" th:href="@{/student}">Student List</a></li>
       <li><a class="nav-link" th:href="@{/schoolGroup}">School Groups</a></li>
       <li><a class="nav-link" th:href="@{/timetable}">Timetables</a></li>

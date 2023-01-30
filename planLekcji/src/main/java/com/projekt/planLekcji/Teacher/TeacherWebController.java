@@ -87,7 +87,7 @@ public class TeacherWebController {
         System.out.println(errors.getAllErrors());
         if (errors.hasErrors()) {
             for (ObjectError error: errors.getAllErrors()) {
-                model.addAttribute("errorMessage", error.toString());
+                model.addAttribute("errorMessage", error.getDefaultMessage());
             }
         } else {
             teacherService.addTeacher(teacher);

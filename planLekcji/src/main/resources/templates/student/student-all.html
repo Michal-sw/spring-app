@@ -16,7 +16,7 @@
 </div>
 <br/>
 <br/>
-<div th:each="student : ${students}">
+<div th:each="student : ${students}" class="flex-list-container">
     <span th:text="${student.firstName}"></span>
     <span th:text="${student.lastName}"></span>
     <span><a th:href="@{/student/{id}(id=${student.getId()})}">EDIT</a></span>

@@ -4,7 +4,9 @@ import com.projekt.planLekcji.Student.Student;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.Constraint;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +17,9 @@ public class SchoolGroup {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
-    @NotNull(message = "Group name must be in '{number}{Letter}' format!")
-    @Size(min = 1, max = 4)
+    @NotNull(message = "Group must be specified!")
+    @Size(min = 2, max = 2)
+    @Pattern(regexp="^\\d[a-zA-Z]$", message = "Group name must be in {Number}{Letter} pattern")
     private String name;
 
     @OneToMany(mappedBy="schoolGroup")

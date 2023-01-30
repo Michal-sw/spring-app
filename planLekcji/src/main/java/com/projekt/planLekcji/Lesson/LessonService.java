@@ -3,6 +3,7 @@ package com.projekt.planLekcji.Lesson;
 import com.projekt.planLekcji.Lesson.Lesson;
 import com.projekt.planLekcji.Lesson.LessonRepository;
 import com.projekt.planLekcji.Student.Student;
+import com.projekt.planLekcji.Timetable.Timetable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -40,5 +41,10 @@ public class LessonService {
 
     public void deleteById(String id) {
         lessonRepository.deleteById(id);
+    }
+
+    public void setTimetable(Lesson lesson, Timetable timetable) {
+        lesson.setTimetable(timetable);
+        lessonRepository.save(lesson);
     }
 }

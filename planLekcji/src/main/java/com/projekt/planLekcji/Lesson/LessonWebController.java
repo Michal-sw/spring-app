@@ -82,7 +82,7 @@ public class LessonWebController {
         System.out.println(errors.getAllErrors());
         if (errors.hasErrors()) {
             for (ObjectError error: errors.getAllErrors()) {
-                model.addAttribute("errorMessage", error.toString());
+                model.addAttribute("errorMessage", error.getDefaultMessage());
             }
         } else {
             lessonService.addLesson(lesson);

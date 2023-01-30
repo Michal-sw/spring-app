@@ -16,7 +16,7 @@
 </div>
 <br/>
 <br/>
-<div th:each="teacher : ${teachers}">
+<div th:each="teacher : ${teachers}" class="flex-list-container">
   <span th:text="${teacher.getFirstName()}"></span>
   <span th:text="${teacher.getLastName()}"></span>
   <span th:text="${teacher.getSpeciality().name()}"></span>

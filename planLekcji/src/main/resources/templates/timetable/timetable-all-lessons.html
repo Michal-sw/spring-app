@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Timetable</title>
+</head>
+<body>
+  <h1 th:text="'Timetable for group: ' + ${timetable.assignedSchoolGroup.getName()}"></h1>
+  <table th:object="${timetable}">
+    <tr>
+      <th>Teacher</th>
+      <th>Subject</th>
+      <th>Start time</th>
+      <th>End time</th>
+    </tr>
+
+    <tr th:each="lesson : *{lessons}">
+      <td th:text="${lesson.teacher.getFirstName()} + ' ' + ${lesson.teacher.getLastName()}"></td>
+      <td th:text="${lesson.teacher.getSpeciality()}"></td>
+      <td th:text="${lesson.getStartTime()}"></td>
+      <td th:text="${lesson.getEndTime()}"></td>
+      <td></td>
+    </tr>
+  </table>
+
+</body>
+</html>

@@ -12,29 +12,37 @@
 <h2>Edit Timetable</h2>
 
 <form action="#" th:action="@{/timetable/{id}(id=${timetable.getId()})}" th:object="${timetable}" method="post">
-
-    <select name="assignedToSchoolGroup" id="assignedToSchoolGroup">
-        <option
-                th:each="group : ${schoolGroups}"
-                th:value="${group.getId()}"
-                th:text="${group.getName()}"
-                th:selected="(${group.getName()} == *{assignedSchoolGroup.getName()})"
-        >
-        </option>
-    </select>
-    <p th:each="lesson : *{lessons}" th:text="${lesson.getId()}"></p>
-    <select name="lessons" id="lessons" multiple="multiple">
-        <option
-                th:each="lesson : ${lessons}"
-                th:value="${lesson.getId()}"
-                th:text="${lesson.getTeacher().getSpeciality()} + ' ' + ${lesson.getStartTime()} + ' ' + ${lesson.getEndTime()}"
-                th:selected="${#lists.contains(timetable.lessons, lesson)}"
-        >
-        </option>
-    </select>
+    <div>
+        <label>Assigned to group</label>
+        <select name="assignedToSchoolGroup" id="assignedToSchoolGroup">
+            <option selected
+                    th:text="*{assignedSchoolGroup.getName()}"
+                    th:value="*{assignedSchoolGroup.getId()}"
+            />
+            <option
+                    th:each="group : ${schoolGroups}"
+                    th:value="${group.getId()}"
+                    th:text="${group.getName()}"
+            >
+            </option>
+        </select>
+    </div>
+    <div>
+        <label>Lessons</label>
+        <select name="lessons" id="lessons" multiple="multiple">
+            <option
+                    th:each="lesson : ${lessons}"
+                    th:value="${{lesson}}"
+                    th:text="${lesson.getTeacher().getSpeciality()} + ' ' + ${lesson.getStartTime()} + ' ' + ${lesson.getEndTime()}"
+                    th:selected="${#lists.contains(timetable.lessons, lesson)}"
+            >
+            </option>
+        </select>
+    </div>
 
     <div><input type="submit" value="Submit"></div>
 
+    <a th:href="@{/timetable/{id}/lessons(id=${timetable.getId()})}">Show all lessons</a>
 </form>
 
 <div th:if="${errorMessage}">

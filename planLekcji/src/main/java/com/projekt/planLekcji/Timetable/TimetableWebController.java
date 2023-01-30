@@ -1,6 +1,8 @@
 package com.projekt.planLekcji.Timetable;
 
+import com.projekt.planLekcji.Lesson.Lesson;
 import com.projekt.planLekcji.Lesson.LessonService;
+import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import com.projekt.planLekcji.SchoolGroup.SchoolGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,7 +64,6 @@ public class TimetableWebController {
     @GetMapping("/timetable/{id}")
     public String timetableEditPath(@PathVariable("id") String id, Model model) {
         Timetable timetable = timetableService.findByIdWithAllLessons(id);
-
         if (timetable != null) {
             model.addAttribute("timetable", timetable);
         } else {
@@ -71,15 +72,30 @@ public class TimetableWebController {
         model.addAttribute("schoolGroups", timetableService.findAllGroupsWithoutTimetable());
         model.addAttribute("lessons", lessonService.getAllLessons());
 
+
         return "/timetable/timetable-edit";
+    }
+
+    @GetMapping("/timetable/{id}/lessons")
+    public String timetableAllLessonsPath(@PathVariable("id") String id, Model model) {
+        Timetable timetable = timetableService.findByIdWithAllLessons(id);
+        if (timetable != null) {
+            model.addAttribute("timetable", timetable);
+        } else {
+            model.addAttribute("timetable", new Timetable());
+        }
+
+        return "/timetable/timetable-all-lessons";
     }
 
     @PostMapping("/timetable/{id}")
     public String timetableEdit(@PathVariable("id") String id, @ModelAttribute Timetable editedTimetable, Model model) {
         Timetable timetable = timetableService.findById(id);
-        System.out.println(editedTimetable.getLessons());
         if (timetable != null) {
             timetableService.editTimetable(editedTimetable);
+            for (Lesson lesson : timetable.getLessons()) {
+                lessonService.setTimetable(lesson, timetable);
+            }
         }
 
         return "redirect:/timetable";
@@ -87,13 +103,15 @@ public class TimetableWebController {
 
     @PostMapping("/timetable")
     public ModelAndView addNewTimetable(@Valid Timetable timetable, Errors errors, ModelMap model) {
-        System.out.println(errors.getAllErrors());
         if (errors.hasErrors()) {
             for (ObjectError error: errors.getAllErrors()) {
-                model.addAttribute("errorMessage", error.toString());
+                model.addAttribute("errorMessage", error.getDefaultMessage());
             }
         } else {
             timetableService.addTimetable(timetable);
+            for (Lesson lesson : timetable.getLessons()) {
+                lessonService.setTimetable(lesson, timetable);
+            }
             model.addAttribute("successMessage", "Timetable added! :)");
         }
 

@@ -68,22 +68,28 @@ public class SchoolGroupWebController {
     }
 
     @PostMapping("/schoolGroup/{id}")
-    public String schoolGroupEdit(@PathVariable("id") String id, @ModelAttribute SchoolGroup editedSchoolGroup, Model model) {
-        SchoolGroup schoolGroup = schoolGroupService.findById(id);
-        if (schoolGroup != null) {
-            schoolGroupService.editSchoolGroup(editedSchoolGroup);
+    public ModelAndView schoolGroupEdit(@PathVariable("id") String id, @Valid @ModelAttribute SchoolGroup editedSchoolGroup,Errors errors, ModelMap model) {
+        if (errors.hasErrors()) {
+            for (ObjectError error: errors.getAllErrors()) {
+                model.addAttribute("errorMessage", error.getDefaultMessage());
+            }
+        } else {
+            SchoolGroup schoolGroup = schoolGroupService.findById(id);
+            if (schoolGroup != null) {
+                schoolGroupService.editSchoolGroup(editedSchoolGroup);
+            }
+            model.addAttribute("successMessage", "User edited! :)");
         }
 
-        return "redirect:/schoolGroup";
+        return new ModelAndView("redirect:/schoolGroup", model);
     }
 
     @PostMapping("/schoolGroup")
     public ModelAndView addNewSchoolGroup(@Valid SchoolGroup schoolGroup, Errors errors, ModelMap model) {
-        System.out.println(schoolGroup.getName());
         System.out.println(errors.getAllErrors());
         if (errors.hasErrors()) {
             for (ObjectError error: errors.getAllErrors()) {
-                model.addAttribute("errorMessage", error.toString());
+                model.addAttribute("errorMessage", error.getDefaultMessage());
             }
         } else {
             schoolGroupService.addSchoolGroup(schoolGroup);

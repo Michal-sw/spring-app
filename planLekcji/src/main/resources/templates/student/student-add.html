@@ -13,10 +13,17 @@
 
 <form action="#" th:action="@{/student}" th:object="${student}" method="post">
 
-  <div><input type="text" th:field="*{firstName}"></div>
-  <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
-  <div><input type="text" th:field="*{lastName}"></div>
   <div>
+    <label>First name</label>
+    <input type="text" th:field="*{firstName}">
+  </div>
+
+  <div>
+    <label>Last name</label>
+    <input type="text" th:field="*{lastName}">
+  </div>
+  <div>
+    <label>School group</label>
     <select th:field="*{schoolGroup}">
       <option th:each="group : ${schoolGroups}" th:value="${group.getId()}" th:text="${group.getName()}">
       </option>

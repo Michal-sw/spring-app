@@ -5,6 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Add Teacher</title>
+  <link th:href="@{/../static/styles/main.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
@@ -13,9 +14,15 @@
 
 <form action="#" th:action="@{/teacher}" th:object="${teacher}" method="post">
 
-  <div><input type="text" th:field="*{firstName}"></div>
-  <div><input type="text" th:field="*{lastName}"></div>
   <div>
+    <label>First name</label>
+    <input type="text" th:field="*{firstName}"></div>
+  <div>
+    <label>Last name</label>
+    <input type="text" th:field="*{lastName}">
+  </div>
+  <div>
+    <label>Specialty</label>
     <select name="speciality" id="speciality">
       <option th:each="speciality : ${specialities}"
               th:value="${speciality}"

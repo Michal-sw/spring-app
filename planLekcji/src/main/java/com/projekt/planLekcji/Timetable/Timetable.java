@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 public class Timetable {
-
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
@@ -38,6 +37,10 @@ public class Timetable {
     }
 
     public void addLesson(Lesson lesson) {
+        if (lesson != null) {
+            lessons.add(lesson);
+            lesson.setTimetable(this);
+        }
         this.lessons.add(lesson);
     }
     public void removeLesson(Lesson lesson) {

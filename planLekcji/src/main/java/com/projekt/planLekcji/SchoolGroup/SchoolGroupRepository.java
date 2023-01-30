@@ -17,6 +17,9 @@ public interface SchoolGroupRepository extends CrudRepository<SchoolGroup, Strin
     @Override
     Optional<SchoolGroup> findById(String s);
 
+    @Query("select m from SchoolGroup m where m.name = :s ")
+    Optional<SchoolGroup> findByName(String s);
+
     @Query("select m from SchoolGroup m left join fetch m.students where m.id = :s ")
     Optional<List<SchoolGroup>> findByIdWithStudents(String s);
 

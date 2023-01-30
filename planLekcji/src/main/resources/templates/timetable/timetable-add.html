@@ -13,6 +13,7 @@
 
 <form action="#" th:action="@{/timetable}" th:object="${timetable}" method="post">
 
+  <label>Assigned to group</label>
   <select name="assignedToSchoolGroup" id="assignedToSchoolGroup">
     <option
             th:each="group : ${schoolGroups}"
@@ -23,10 +24,11 @@
     </option>
   </select>
 
+  <label>Lessons</label>
   <select name="lessons" id="lessons" multiple="multiple">
     <option
             th:each="lesson : ${lessons}"
-            th:value="${lesson.getId()}"
+            th:value="${{lesson}}"
             th:text="${lesson.getTeacher().getSpeciality()} + ' ' + ${lesson.getStartTime()} + ' ' + ${lesson.getEndTime()}"
     >
     </option>

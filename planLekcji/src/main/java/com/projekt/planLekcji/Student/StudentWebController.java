@@ -77,10 +77,9 @@ public class StudentWebController {
 
     @PostMapping("/student")
     public ModelAndView addNewStudent(@Valid Student student, Errors errors, ModelMap model) {
-        System.out.println(errors.getAllErrors());
         if (errors.hasErrors()) {
             for (ObjectError error: errors.getAllErrors()) {
-                model.addAttribute("errorMessage", error.toString());
+                model.addAttribute("errorMessage", error.getDefaultMessage());
             }
             model.addAttribute("errorMessage", "Data not valid, try again :)");
         } else {

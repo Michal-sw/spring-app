@@ -13,7 +13,10 @@
 
 <form action="#" th:action="@{/templates/schoolGroup}" th:object="${schoolGroup}" method="post">
 
-  <div><input type="text" th:field="*{name}"></div>
+  <div>
+    <label>Group name</label>
+    <input type="text" th:field="*{name}">
+  </div>
   <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 
   <div><input type="submit" value="Submit"></div>

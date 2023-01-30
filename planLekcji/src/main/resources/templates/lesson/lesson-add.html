@@ -12,9 +12,16 @@
 <h2>Add Lesson</h2>
 
 <form action="#" th:action="@{/lesson}" th:object="${lesson}" method="post">
-  <div><input type="time" th:field="*{startTime}"></div>
-  <div><input type="time" th:field="*{endTime}"></div>
   <div>
+    <label>Start time</label>
+    <input type="time" th:field="*{startTime}">
+  </div>
+  <div>
+    <label>End time</label>
+    <input type="time" th:field="*{endTime}">
+  </div>
+  <div>
+    <label>Teacher</label>
     <select th:field="*{teacher}">
       <option th:each="teacher : ${teachers}"
               th:value="${teacher.getId()}"

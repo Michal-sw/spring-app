@@ -1,5 +1,7 @@
 package com.projekt.planLekcji.Timetable;
 
+import com.projekt.planLekcji.Lesson.Lesson;
+import com.projekt.planLekcji.Lesson.LessonService;
 import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import com.projekt.planLekcji.Teacher.Teacher;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class TimetableService {
     }
 
     public Timetable addTimetable(Timetable timetableToAdd) {
+        for (Lesson lesson : timetableToAdd.getLessons()) {
+            lesson.setTimetable(timetableToAdd);
+        }
         timetableRepository.save(timetableToAdd);
         return timetableToAdd;
     }
