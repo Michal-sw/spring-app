@@ -5,6 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>All Lessons</title>
+  <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
@@ -14,15 +15,29 @@
 <div>
   <a th:href="@{/lesson/add}">New Lesson</a>
 </div>
-<br/>
-<br/>
-<div th:each="lesson : ${lessons}">
-  <span th:text="${lesson.getStartTime()}"></span>
-  <span th:text="${lesson.getEndTime()}"></span>
-  <span th:if="(${lesson.teacher} != null)" th:text="${lesson.getTeacher().getLastName()}"></span>
-  <span><a th:href="@{/lesson/{id}(id=${lesson.getId()})}">EDIT</a></span>
-  <a th:href="@{/lesson/delete/{id}(id=${lesson.getId()})}">Delete</a>
-  <br/>
+
+<div class="flex-list-container">
+  <div th:each="subject : ${subjects}">
+    <button>
+      <a th:text="'Show only ' + ${subject.name().toLowerCase()}"
+         th:href="@{?(subjectFilter=${subject.name()})}"
+      ></a>
+    </button>
+  </div>
+</div>
+<div class="flex-list-container">
+  <div th:each="lesson : ${lessons}" class="flex-list-item">
+    <div th:text="${lesson.getStartTime() + ' - ' + lesson.getEndTime()}"></div>
+    <div th:if="(${lesson.teacher} != null)" th:text="${lesson.getTeacher().getLastName()}"></div>
+    <div>
+      <button>
+        <a th:href="@{/lesson/{id}(id=${lesson.getId()})}">EDIT</a>
+      </button>
+      <button>
+        <a th:href="@{/lesson/delete/{id}(id=${lesson.getId()})}">Delete</a>
+      </button>
+    </div>
+  </div>
 </div>
 
 <div th:if="${successMessage}">

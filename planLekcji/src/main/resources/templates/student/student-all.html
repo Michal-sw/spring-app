@@ -5,23 +5,29 @@
 <head>
     <meta charset="UTF-8">
     <title>All students</title>
+    <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
 
-<h2>People from DB</h2>
+<h2>All students</h2>
 
 <div>
     <a th:href="@{/student/add}">New student</a>
 </div>
-<br/>
-<br/>
-<div th:each="student : ${students}" class="flex-list-container">
-    <span th:text="${student.firstName}"></span>
-    <span th:text="${student.lastName}"></span>
-    <span><a th:href="@{/student/{id}(id=${student.getId()})}">EDIT</a></span>
-    <a th:href="@{/student/delete/{id}(id=${student.getId()})}">Delete</a>
-    <br/>
+<div class="flex-list-container">
+    <div th:each="student : ${students}" class="flex-list-item">
+        <div th:text="${student.firstName + ' ' + student.lastName}"></div>
+        <div th:text="${student.getSchoolGroup().getName()}"></div>
+        <div>
+            <button>
+                <a th:href="@{/student/{id}(id=${student.getId()})}">EDIT</a>
+            </button>
+            <button>
+                <a th:href="@{/student/delete/{id}(id=${student.getId()})}">Delete</a>
+            </button>
+        </div>
+    </div>
 </div>
 
 <div th:if="${successMessage}">

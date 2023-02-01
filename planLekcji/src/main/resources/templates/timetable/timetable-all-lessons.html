@@ -5,25 +5,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Timetable</title>
+    <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
   <h1 th:text="'Timetable for group: ' + ${timetable.assignedSchoolGroup.getName()}"></h1>
-  <table th:object="${timetable}">
-    <tr>
-      <th>Teacher</th>
-      <th>Subject</th>
-      <th>Start time</th>
-      <th>End time</th>
-    </tr>
+  <div class="table-wrapper">
+    <table th:object="${timetable}" class="fl-table">
+      <thead>
+        <tr>
+          <th>Teacher</th>
+          <th>Subject</th>
+          <th>Start time</th>
+          <th>End time</th>
+        </tr>
+      </thead>
 
-    <tr th:each="lesson : *{lessons}">
-      <td th:text="${lesson.teacher.getFirstName()} + ' ' + ${lesson.teacher.getLastName()}"></td>
-      <td th:text="${lesson.teacher.getSpeciality()}"></td>
-      <td th:text="${lesson.getStartTime()}"></td>
-      <td th:text="${lesson.getEndTime()}"></td>
-      <td></td>
-    </tr>
-  </table>
-
+      <tbody>
+        <tr th:each="lesson : *{lessons}">
+          <td th:text="${lesson.teacher.getFirstName()} + ' ' + ${lesson.teacher.getLastName()}"></td>
+          <td th:text="${lesson.teacher.getSpeciality()}"></td>
+          <td th:text="${lesson.getStartTime()}"></td>
+          <td th:text="${lesson.getEndTime()}"></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>

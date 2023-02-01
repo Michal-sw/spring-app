@@ -3,22 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>NavigationBar</title>
-  <link th:href="@{/styles/main.css}" rel="stylesheet" />
+  <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
 
-<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
-  <div class="navbar">
-    <ul class="nav-list">
-      <li><a class="nav-link" th:href="@{/student}">Student List</a></li>
-      <li><a class="nav-link" th:href="@{/schoolGroup}">School Groups</a></li>
-      <li><a class="nav-link" th:href="@{/timetable}">Timetables</a></li>
-      <li><a class="nav-link" th:href="@{/lesson}">Lessons</a></li>
-      <li><a class="nav-link" th:href="@{/teacher}">Teachers</a></li>
-
-    </ul>
-  </div>
-</nav>
+<div id="navbar-animmenu" th:fragment="navbar">
+  <ul class="show-dropdown main-navbar">
+    <li><a class="nav-link" th:href="@{/student}">Student List</a></li>
+    <li><a class="nav-link" th:href="@{/schoolGroup}">School Groups</a></li>
+    <li><a class="nav-link" th:href="@{/timetable}">Timetables</a></li>
+    <li><a class="nav-link" th:href="@{/lesson}">Lessons</a></li>
+    <li><a class="nav-link" th:href="@{/teacher}">Teachers</a></li>
+  </ul>
+</div>
 
 </body>
 </html>

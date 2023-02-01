@@ -5,6 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>All timetables</title>
+  <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
@@ -14,13 +15,23 @@
 <div>
   <a th:href="@{/timetable/add}">New Timetable</a>
 </div>
-<br/>
-<br/>
-<div th:each="timetable : ${timetables}">
-  <span th:text="${timetable.getAssignedSchoolGroup().getName()}"></span>
-  <span><a th:href="@{/timetable/{id}(id=${timetable.getId()})}">EDIT</a></span>
-  <a th:href="@{/timetable/delete/{id}(id=${timetable.getId()})}">Delete</a>
-  <br/>
+<div class="flex-list-container">
+  <div th:each="timetable : ${timetables}" class="flex-list-item">
+    <div th:text="${timetable.getAssignedSchoolGroup().getName()}"></div>
+    <div>
+      <button>
+        <a th:href="@{/timetable/{id}/lessons(id=${timetable.getId()})}">Show Timetable</a>
+      </button>
+    </div>
+    <div>
+      <button>
+        <a th:href="@{/timetable/{id}(id=${timetable.getId()})}">EDIT</a>
+      </button>
+      <button>
+        <a th:href="@{/timetable/delete/{id}(id=${timetable.getId()})}">Delete</a>
+      </button>
+    </div>
+  </div>
 </div>
 
 <div th:if="${successMessage}">

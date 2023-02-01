@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>School group</title>
+    <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
 <div th:insert="navbar :: navbar"></div>
@@ -19,14 +20,14 @@
     </div>
     <div>
         <label>Students</label>
-        <ul class="flex-box">
+        <div>
             <li th:each="student : *{students}">
                 <a
                         th:href="@{/student/{studentId}(studentId=${student.getId()})}"
                         th:text="${student.getFirstName()} + ' ' + ${student.getLastName()}"
                 ></a>
             </li>
-        </ul>
+        </div>
     </div>
     <div><input type="submit" value="Submit"></div>
 
