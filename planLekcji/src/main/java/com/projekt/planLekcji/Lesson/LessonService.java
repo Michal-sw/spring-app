@@ -3,6 +3,7 @@ package com.projekt.planLekcji.Lesson;
 import com.projekt.planLekcji.Lesson.Lesson;
 import com.projekt.planLekcji.Lesson.LessonRepository;
 import com.projekt.planLekcji.Student.Student;
+import com.projekt.planLekcji.Teacher.Speciality;
 import com.projekt.planLekcji.Timetable.Timetable;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,12 @@ public class LessonService {
 
     public Iterable<Lesson> getAllLessons() {
         return lessonRepository.findAll();
+    }
+
+    public Iterable<Lesson> getLessonsWithFilter(Speciality subjectFilter) {
+        if (subjectFilter == null) return getAllLessons();
+
+        return lessonRepository.findAllOfSubject(subjectFilter);
     }
 
     public void deleteById(String id) {

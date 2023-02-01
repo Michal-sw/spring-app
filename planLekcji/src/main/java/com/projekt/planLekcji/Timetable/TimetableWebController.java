@@ -95,10 +95,15 @@ public class TimetableWebController {
     public String timetableEdit(@PathVariable("id") String id, @ModelAttribute Timetable editedTimetable, Model model) {
         Timetable timetable = timetableService.findByIdWithAllLessons(id);
         if (timetable != null) {
-            timetableService.editTimetable(editedTimetable);
             for (Lesson lesson : timetable.getLessons()) {
+                if (!editedTimetable.getLessons().contains(lesson)) {
+                    lessonService.setTimetable(lesson, null);
+                }
+            }
+            for (Lesson lesson : editedTimetable.getLessons()) {
                 lessonService.setTimetable(lesson, timetable);
             }
+            timetableService.editTimetable(editedTimetable);
         }
 
         return "redirect:/timetable";

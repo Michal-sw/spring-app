@@ -1,5 +1,6 @@
 package com.projekt.planLekcji.Lesson;
 
+import com.projekt.planLekcji.Teacher.Speciality;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -22,6 +23,9 @@ interface LessonRepository extends CrudRepository<Lesson, String> {
     @Override
     @Query("Select m from Lesson m")
     Iterable<Lesson> findAll();
+
+    @Query("Select m from Lesson m where m.teacher.speciality = :s")
+    Iterable<Lesson> findAllOfSubject(Speciality s);
 
     @Override
     Iterable<Lesson> findAllById(Iterable<String> strings);

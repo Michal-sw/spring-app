@@ -1,5 +1,6 @@
 package com.projekt.planLekcji.Teacher;
 
+import com.projekt.planLekcji.Lesson.Lesson;
 import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import com.projekt.planLekcji.Teacher.Teacher;
 import com.projekt.planLekcji.Teacher.TeacherRepository;
@@ -40,6 +41,10 @@ public class TeacherService {
             return teachers.get().get(0);
         }
         return null;
+    }
+
+    public Iterable<Speciality> getAllLessonSubjects() {
+        return teacherRepository.findAllTeacherSubjects();
     }
 
     public Iterable<Teacher> getAllTeachers() {

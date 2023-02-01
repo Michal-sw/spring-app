@@ -1,6 +1,5 @@
 package com.projekt.planLekcji.Teacher;
 
-import com.projekt.planLekcji.SchoolGroup.SchoolGroup;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -24,6 +23,9 @@ interface TeacherRepository extends CrudRepository<Teacher, String> {
     @Override
     @Query("Select m from Teacher m")
     Iterable<Teacher> findAll();
+
+    @Query("Select m.speciality from Teacher m group by m.speciality")
+    Iterable<Speciality> findAllTeacherSubjects();
 
     @Override
     Iterable<Teacher> findAllById(Iterable<String> strings);

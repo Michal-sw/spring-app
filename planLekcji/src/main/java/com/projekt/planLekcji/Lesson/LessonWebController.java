@@ -3,6 +3,7 @@ package com.projekt.planLekcji.Lesson;
 import com.projekt.planLekcji.Lesson.Lesson;
 import com.projekt.planLekcji.Lesson.LessonService;
 import com.projekt.planLekcji.Student.StudentService;
+import com.projekt.planLekcji.Teacher.Speciality;
 import com.projekt.planLekcji.Teacher.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,9 +31,13 @@ public class LessonWebController {
     public String lesson(
             @RequestParam(value = "errorMessage", required = false) String errorMessage,
             @RequestParam(value = "successMessage", required = false) String successMessage,
+            @RequestParam(value = "subjectFilter", required = false) String subjectFilter,
             Model model)
     {
-        model.addAttribute("lessons", lessonService.getAllLessons());
+        Speciality subjectFilterEnum = subjectFilter == null ? null : Speciality.valueOf(subjectFilter);
+
+        model.addAttribute("subjects", teacherService.getAllLessonSubjects());
+        model.addAttribute("lessons", lessonService.getLessonsWithFilter(subjectFilterEnum));
         if (errorMessage != null) model.addAttribute("errorMessage", errorMessage);
         if (successMessage != null) model.addAttribute("successMessage", successMessage);
 
